@@ -8,13 +8,13 @@ import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 import '../components/BottomButton.dart';
-import '../components/Calculator_Brain.dart';
 import '../components/burgerMenu.dart';
 import '../components/resusable_card.dart';
 import '../components/sidesMenu.dart';
 import '../components/variables.dart';
 
 class homePage extends StatelessWidget {
+  HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,6 @@ class homePage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(10.h),
       child: GetBuilder<HomeController>(
-        init: HomeController(),
         builder: (logic) {
           return Stack(
             children: [
@@ -91,18 +90,9 @@ class homePage extends StatelessWidget {
                         child: BottomButton(
                           text: 'Total Calories',
                           onPressed: () {
-                              CalculatorBrain calc = CalculatorBrain(
-                                  bigMacCount: logic.bigMacCount,
-                                  cheeseBurgerCount: logic.cheeseBurgerCount,
-                                  chickenBurgerCount: logic.chickenBurgerCount,
-                                  quarterPounderCount: logic.quarterPounderCount,
-                                  largeFriesCount: logic.largeFriesCount,
-                                  chickenNuggetCount:logic. chickenNuggetCount,
-                                  largeCokeCount: logic.largeCokeCount,
-                                  softServeCount: logic.softServeCount);
                               Get.to( ResultsPage(
-                                calorieSum: calc.calculateCalories(),
-                                resultText: calc.displayMessage(),
+                                calorieSum: logic.calorieSum.toString(),
+                                resultText: logic.displayMessage(),
                               ));
                           },
                         ),
