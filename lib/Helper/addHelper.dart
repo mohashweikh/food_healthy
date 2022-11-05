@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'components/variables.dart';
+import '../components/variables.dart';
 
 class AdHelper {
 

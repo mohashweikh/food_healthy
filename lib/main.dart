@@ -29,21 +29,22 @@ void main() {
       appBar: AppBar(
         actions: [
           PopupMenuButton(
-              itemBuilder: (context)=>[
-                PopupMenuItem<int>(
-                  value: 0,
-                  child: Text("Add Meal"),
-                ),
-              ],
-            onSelected: (value){
-                Get.to(NewMealPage());
+            itemBuilder: (context) => [
+              PopupMenuItem<int>(
+                value: 0,
+                child: Text("Add Meal",style: TextStyle(color: Colors.black),),
+              ),
+            ],
+            onSelected: (value) {
+              if(value==0)
+              Get.to(()=>NewMealPage());
             },
           )
         ],
         title: Text(
           "McDonald's Calorie Counter",
           style: TextStyle(
-        color: Colors.white,
+            color: Colors.white,
           ),
         ),
         backgroundColor: primary_Color,
