@@ -1,9 +1,9 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_healthy/Controller/HomeController.dart';
-import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
+
 import '../components/variables.dart';
 
 class NewMealPage extends StatelessWidget {
@@ -122,6 +122,90 @@ class NewMealPage extends StatelessWidget {
                               child: Center(child: Text('Add Meal')))))
                 ],
               ),
+            ),
+          appBar: AppBar(
+            title: Text('New Meal'),
+          ),
+          backgroundColor: primary_Color,
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: GestureDetector(
+                      onTap: logic.selectFile,
+                      child: logic.file == null
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(Icons.camera_alt),
+                                Text('Select photo of meal')
+                              ],
+                            )
+                          : Image.file(
+                              logic.file ?? File(''),
+                              height: 200.h,
+                            )),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  controller: logic.nnumberMeal,
+                  decoration: InputDecoration(
+                      hintText: 'Enter Number of Calories',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextField(
+                  controller: logic.nameMeal,
+                  decoration: InputDecoration(
+                      hintText: 'Enter Name of Calories',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                ),
+                SizedBox(height: 10.h),
+                const Text('Select type of meal'),
+                ListTile(
+                  title: const Text('Burger'),
+                  leading: Radio(
+                    value: FoodCategory.burger,
+                    groupValue: logic.selectedCategory,
+                    onChanged: (value) {
+                      logic.setCategory(value!);
+                    },
+                  ),
+                ),
+                ListTile(
+                  title: const Text('Side'),
+                  leading: Radio(
+                    value: FoodCategory.sides,
+                    groupValue: logic.selectedCategory,
+                    onChanged: (value) {
+                      logic.setCategory(value!);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10.h,
+                ),
+                TextField(
+                  keyboardType: TextInputType.number,
+                  controller: logic.countMeal,
+                  decoration: InputDecoration(
+                      hintText: 'Enter Count of Meals',
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                ),
+                const Divider(),
+                Center(
+                    child: ElevatedButton(
+                        onPressed: logic.addMeal, child: Text('Add Meal')))
+              ],
             ),
           ),
         );

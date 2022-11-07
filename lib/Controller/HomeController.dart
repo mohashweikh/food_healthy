@@ -51,81 +51,177 @@ class HomeController extends GetxController {
         ));
       }
     clearController();
+    } else {
+      Get.snackbar('', 'You must fill allfields', snackPosition: SnackPosition.BOTTOM);
+    }
+    update();
+    XFile? imageFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    file = File(imageFile!.path);
+    update();
+  }
+
+  var rng = Random();
+
+  addMeal() {
+    if (nameMeal.text.isNotEmpty &&
+        countMeal.text.isNotEmpty &&
+        nnumberMeal.text.isNotEmpty &&
+        file != null) {
+      if (selectedCategory == FoodCategory.burger) {
+        burger.add(Tmeal(
+          id: rng.nextInt(100),
+          name: nameMeal.text,
+          image: file!.path,
+          category: selectedCategory,
+          numCalories: int.parse(nnumberMeal.text),
+          counter: int.parse(countMeal.text),
+        ));
+      } else {
+        sides.add(Tmeal(
+          id: rng.nextInt(100),
+          name: nameMeal.text,
+          image: file!.path,
+          category: selectedCategory,
+          numCalories: int.parse(nnumberMeal.text),
+          counter: int.parse(countMeal.text),
+        ));
+      }
+    clearController();
       Get.back();
     } else {
       Get.snackbar('', 'You must fill allfields', snackPosition: SnackPosition.BOTTOM);
     }
     update();
   }
-  clearController(){
-    file=null;
-    nnumberMeal.clear();
-    nameMeal.clear();
-    countMeal.clear();
-    update();
-  }
-  BannerAd? bannerAd;
-
+   BannerAd?  bannerAd;
   @override
   void onInit() {
     // TODO: implement onInit
     super.onInit();
-    bannerAd = BannerAd(
+  bannerAd =   BannerAd(
       adUnitId: AdHelper.bannerAdUnitId,
-      request: const AdRequest(),
+      request: AdRequest(),
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          bannerAd = ad as BannerAd;
+            bannerAd = ad as BannerAd;
         },
         onAdFailedToLoad: (ad, err) {
+          print('Failed to load a banner ad: ${err.message}');
           ad.dispose();
         },
       ),
     );
-    bannerAd!.load();
-    update();
+  bannerAd!.load();
+     update();
   }
-
   FoodCategory selectedCategory = FoodCategory.burger;
-
-  setCategory(FoodCategory foodCategory) {
-    selectedCategory = foodCategory;
+  setCategory(FoodCategory foodCategory){
+    this.selectedCategory=foodCategory;
     update();
   }
 
-  icrease({required Tmeal meal}) {
-    meal.counter++;
-    update();
-  }
+  int bigMacCount = 0;
+  int cheeseBurgerCount = 0;
+  int chickenBurgerCount = 0;
+  int quarterPounderCount = 0;
 
-  decrease({required Tmeal meal}) {
-    meal.counter--;
-    update();
-  }
-
-  int calorieSum = 0;
-
-  getTotalBurger() {
-    burger.forEach((element) {
-      calorieSum += element.counter;
-    });
-    update();
-  }
-
-  String displayMessage() {
-    if (calorieSum > 2000) {
-      return 'Thats A LOT of calories and very unhealthy for you!';
-    } else {
-      return 'Excessive junk food can lead to heart attack, diabetes and high blood pressure.';
-    }
-  }
+///////////////SIDES COUNTERS
+  int largeFriesCount = 0;
+  int chickenNuggetCount = 0;
+  int largeCokeCount = 0;
+  int softServeCount = 0;
+// ///////////////
 
 //////////////////Reset button
 
   void reset() {
-    burger.map((e) => e.counter = 0);
-    sides.map((e) => e.counter = 0);
+    bigMacCount = 0;
+    cheeseBurgerCount = 0;
+    chickenBurgerCount = 0;
+    quarterPounderCount = 0;
+    largeFriesCount = 0;
+    chickenNuggetCount = 0;
+    largeCokeCount = 0;
+    softServeCount = 0;
     update();
   }
+
+  increaseLargeFriesCount(){
+    this.largeFriesCount++;
+    update();
+  }
+
+  decreaseLargeFriesCount(){
+    if (largeFriesCount >= 1) largeFriesCount--;
+    update();
+  }
+
+  increaseChickenNuggetCount(){
+    chickenNuggetCount++;
+update();
+  }
+  decreaseChickenNuggetCount(){
+    if (chickenNuggetCount >= 1) chickenNuggetCount--;
+  }
+
+  increaselargeCokeCount(){
+    largeCokeCount++;
+    update();
+  }
+  decreaselargeCokeCount(){
+    if (largeCokeCount >= 1) largeCokeCount--;
+    update();
+  }
+
+  increaseSoftServeCount(){
+    softServeCount++;
+    update();
+  }
+
+  decreaseSoftServeCount(){
+    if (softServeCount >= 1) softServeCount--;
+    update();
+  }
+
+  increasebigMacCount(){
+    bigMacCount++;
+    update();
+  }
+
+  decreasebigMacCount(){
+    if (bigMacCount >= 1) bigMacCount--;
+    update();
+  }
+
+  increasecheeseBurgerCount(){
+    cheeseBurgerCount++;
+    update();
+  }
+  decreasecheeseBurgerCount(){
+    if (cheeseBurgerCount >= 1) cheeseBurgerCount--;
+    update();
+  }
+
+  increasequarterPounderCount(){
+    quarterPounderCount++;
+update();
+  }
+
+  decreasequarterPounderCount(){
+    if (quarterPounderCount >= 1) quarterPounderCount--;
+update();
+  }
+
+  increasechickenBurgerCount(){
+    chickenBurgerCount++;
+update();
+  }
+  decreasechickenBurgerCount(){
+    if (chickenBurgerCount >= 1) chickenBurgerCount--;
+update();
+  }
+
+
 }
