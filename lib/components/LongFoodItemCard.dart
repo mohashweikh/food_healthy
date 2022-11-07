@@ -10,11 +10,6 @@ import 'package:get/get.dart';
 import '../Model/Meal.dart';
 
 class LongFoodItemCard extends StatelessWidget {
-  final logic = Get.find<HomeController>();
- Tmeal meal;
-import '../Model/Meal.dart';
-
-class LongFoodItemCard extends StatelessWidget {
  Tmeal meal;
 
   LongFoodItemCard({
@@ -23,64 +18,6 @@ class LongFoodItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Container(
-          margin: EdgeInsets.symmetric(vertical: 5.h),
-          padding: EdgeInsets.only(bottom: 4.h),
-          child: Row(
-            children: [
-              Image.file(File(meal.image)),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '${meal.name}',
-                    style: TextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '${meal.category.name}',
-                    style: TextStyle(
-                        fontSize: 17.sp, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Text(
-                '(${meal.numCalories.toString()} cal)',
-                style: TextStyle(fontSize: 15.r),
-              ),
-              Spacer(),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    meal.counter.toString(),
-                    style: TextStyle(fontSize: 25.sp),
-                  ),
-                  Row(
-                    children: [
-                      FloatingActionButton(
-                        onPressed: logic.decrease(meal:meal),
-                        heroTag: null,
-                        mini: true,
-                        backgroundColor: primary_Color,
-                        foregroundColor: Colors.black,
-                        child: Icon(Icons.remove),
-                      ),
-                      FloatingActionButton(
-                        onPressed: logic.icrease(meal:meal ),
-                        heroTag: null,
-                        child: Icon(Icons.add),
-                        backgroundColor: primary_Color,
-                        foregroundColor: Colors.black,
-                        mini: true,
-                      )
-                    ],
-                  )
-                ],
-              )
-            ],
-          ),
-        );
     return GetBuilder<HomeController>(
       init: HomeController(),
       builder: (logic) {
@@ -128,7 +65,7 @@ class LongFoodItemCard extends StatelessWidget {
                         child: Icon(Icons.remove),
                       ),
                       FloatingActionButton(
-                        onPressed: logic.icrease(meal:meal ),
+                        onPressed: logic.increase(meal:meal ),
                         heroTag: null,
                         child: Icon(Icons.add),
                         backgroundColor: primary_Color,

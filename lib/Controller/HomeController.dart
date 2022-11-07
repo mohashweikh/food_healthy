@@ -26,7 +26,7 @@ class HomeController extends GetxController {
 
   var rng = Random();
 
-  addMeal() {
+  addMeal()async {
     if (nameMeal.text.isNotEmpty &&
         countMeal.text.isNotEmpty &&
         nnumberMeal.text.isNotEmpty &&
@@ -50,7 +50,6 @@ class HomeController extends GetxController {
           counter: int.parse(countMeal.text),
         ));
       }
-    clearController();
     } else {
       Get.snackbar('', 'You must fill allfields', snackPosition: SnackPosition.BOTTOM);
     }
@@ -61,39 +60,8 @@ class HomeController extends GetxController {
     update();
   }
 
-  var rng = Random();
 
-  addMeal() {
-    if (nameMeal.text.isNotEmpty &&
-        countMeal.text.isNotEmpty &&
-        nnumberMeal.text.isNotEmpty &&
-        file != null) {
-      if (selectedCategory == FoodCategory.burger) {
-        burger.add(Tmeal(
-          id: rng.nextInt(100),
-          name: nameMeal.text,
-          image: file!.path,
-          category: selectedCategory,
-          numCalories: int.parse(nnumberMeal.text),
-          counter: int.parse(countMeal.text),
-        ));
-      } else {
-        sides.add(Tmeal(
-          id: rng.nextInt(100),
-          name: nameMeal.text,
-          image: file!.path,
-          category: selectedCategory,
-          numCalories: int.parse(nnumberMeal.text),
-          counter: int.parse(countMeal.text),
-        ));
-      }
-    clearController();
-      Get.back();
-    } else {
-      Get.snackbar('', 'You must fill allfields', snackPosition: SnackPosition.BOTTOM);
-    }
-    update();
-  }
+
    BannerAd?  bannerAd;
   @override
   void onInit() {
@@ -122,106 +90,29 @@ class HomeController extends GetxController {
     update();
   }
 
-  int bigMacCount = 0;
-  int cheeseBurgerCount = 0;
-  int chickenBurgerCount = 0;
-  int quarterPounderCount = 0;
 
-///////////////SIDES COUNTERS
-  int largeFriesCount = 0;
-  int chickenNuggetCount = 0;
-  int largeCokeCount = 0;
-  int softServeCount = 0;
-// ///////////////
-
+increase({required Tmeal meal}){
+    if(meal.counter>=0)
+  meal.counter++;
+    update();
+}
+  decrease({required Tmeal meal}){
+    meal.counter++;
+    update();
+  }
 //////////////////Reset button
-
+int calorieSum=0;
+  getTotal(){
+    burger.map((e) => calorieSum+=e.counter);
+    sides.map((e) => calorieSum+=e.counter);
+    update();
+  }
   void reset() {
-    bigMacCount = 0;
-    cheeseBurgerCount = 0;
-    chickenBurgerCount = 0;
-    quarterPounderCount = 0;
-    largeFriesCount = 0;
-    chickenNuggetCount = 0;
-    largeCokeCount = 0;
-    softServeCount = 0;
+  burger.map((e) => e.counter=0);
+  sides.map((e) => e.counter=0);
     update();
   }
 
-  increaseLargeFriesCount(){
-    this.largeFriesCount++;
-    update();
-  }
-
-  decreaseLargeFriesCount(){
-    if (largeFriesCount >= 1) largeFriesCount--;
-    update();
-  }
-
-  increaseChickenNuggetCount(){
-    chickenNuggetCount++;
-update();
-  }
-  decreaseChickenNuggetCount(){
-    if (chickenNuggetCount >= 1) chickenNuggetCount--;
-  }
-
-  increaselargeCokeCount(){
-    largeCokeCount++;
-    update();
-  }
-  decreaselargeCokeCount(){
-    if (largeCokeCount >= 1) largeCokeCount--;
-    update();
-  }
-
-  increaseSoftServeCount(){
-    softServeCount++;
-    update();
-  }
-
-  decreaseSoftServeCount(){
-    if (softServeCount >= 1) softServeCount--;
-    update();
-  }
-
-  increasebigMacCount(){
-    bigMacCount++;
-    update();
-  }
-
-  decreasebigMacCount(){
-    if (bigMacCount >= 1) bigMacCount--;
-    update();
-  }
-
-  increasecheeseBurgerCount(){
-    cheeseBurgerCount++;
-    update();
-  }
-  decreasecheeseBurgerCount(){
-    if (cheeseBurgerCount >= 1) cheeseBurgerCount--;
-    update();
-  }
-
-  increasequarterPounderCount(){
-    quarterPounderCount++;
-update();
-  }
-
-  decreasequarterPounderCount(){
-    if (quarterPounderCount >= 1) quarterPounderCount--;
-update();
-  }
-
-  increasechickenBurgerCount(){
-    chickenBurgerCount++;
-update();
-  }
-  decreasechickenBurgerCount(){
-    if (chickenBurgerCount >= 1) chickenBurgerCount--;
-update();
-  }
 
 
 }

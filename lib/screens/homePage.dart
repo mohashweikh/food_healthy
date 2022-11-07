@@ -92,7 +92,7 @@ class homePage extends StatelessWidget {
                           onPressed: () {
                               Get.to( ResultsPage(
                                 calorieSum: logic.calorieSum.toString(),
-                                resultText: logic.displayMessage(),
+                                resultText: '',
                               ));
                           },
                         ),
